@@ -1,0 +1,2 @@
+MONGOURI=mongodb+srv://root:admin@cluster0.lmz1w.mongodb.net/udemytest?retryWrites=true&w=majority
+MONGOENCRYPTKEY=igeteverythingiwant

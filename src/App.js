@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import {BrowserRouter as Router,Routes, Route, Link, useParams} from 'react-router-dom';
+import Register from "./login/Register"
+import Login from "./login/Login";
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "http://localhost:4001";
 
 function App() {
+  const [response, setResponse] = useState("");
+
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT);
+    socket.on("FromAPI", data => {
+      setResponse(data);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div class="app">
+     <Router>
+       <Routes>
+         <Route path="/register" element={<Register/>}></Route>
+         <Route path="/login" element={<Login/>}></Route>
+       </Routes>
+     </Router>
+   </div>
   );
 }
 
